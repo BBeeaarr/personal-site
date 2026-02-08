@@ -1,0 +1,13 @@
+package com.armand.professional_site_api;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ArmandsProfessionalSiteApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ArmandsProfessionalSiteApplication.class, args);
+	}
+
+}
