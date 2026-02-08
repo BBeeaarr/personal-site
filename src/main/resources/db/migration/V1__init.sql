@@ -1,3 +1,6 @@
+-- Flyway runs these in version order: V1, V2, V3...
+-- This first migration establishes a minimal schema.
+
 CREATE TABLE projects (
   id            BIGSERIAL PRIMARY KEY,
   slug          TEXT NOT NULL UNIQUE,
