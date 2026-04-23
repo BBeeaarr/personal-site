@@ -1,9 +1,15 @@
 package com.armand.site.api;
 
+import com.armand.site.api.dto.CreateProjectResponse;
 import com.armand.site.api.dto.ProjectResponse;
+import com.armand.site.api.dto.CreateProjectRequest;
 import com.armand.site.service.ProjectService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -26,4 +32,17 @@ public class ProjectController {
         return projectService.getBySlugOrThrow(slug);
     }
 
+    @PostMapping
+    public ResponseEntity<CreateProjectResponse> create(@RequestBody @Valid CreateProjectRequest request)
+    {
+        CreateProjectResponse created = projectService.create(request);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{slug}")
+                .buildAndExpand(created.slug())
+                .toUri();
+
+        return ResponseEntity.created(location).body(created);
+    }
 }

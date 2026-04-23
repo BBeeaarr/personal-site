@@ -1,5 +1,7 @@
 package com.armand.site.service;
 
+import com.armand.site.api.dto.CreateProjectRequest;
+import com.armand.site.api.dto.CreateProjectResponse;
 import com.armand.site.domain.Project;
 import com.armand.site.repository.ProjectRepository;
 import com.armand.site.api.dto.ProjectResponse;
@@ -33,6 +35,24 @@ public class ProjectService {
                 .orElseThrow(() -> new ProjectNotFoundException(slug));
 
         return toResponse(project);
+    }
+
+    public CreateProjectResponse create(CreateProjectRequest request)
+    {
+        if(projectRepository.existsBySlug(request.slug()))
+        {
+            throw new DuplicateSlugException(request.slug());
+        }
+
+        Project project = new Project(
+                request.slug(),
+                request.title(),
+                request.summary()
+        );
+
+        Project saved = projectRepository.save(project);
+
+        return new CreateProjectResponse(saved.getSlug(), saved.getCreatedAt());
     }
 
     private ProjectResponse toResponse(Project project) {

@@ -1,5 +1,6 @@
 package com.armand.site.api;
 
+import com.armand.site.service.DuplicateSlugException;
 import com.armand.site.service.ProjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +22,17 @@ public class GlobalExceptionHandler {
                 "message", ex.getMessage()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(DuplicateSlugException.class)
+    public ResponseEntity<Map<String, Object>> handleDuplicateSlug(DuplicateSlugException ex)
+    {
+        Map<String,Object> body = Map.of(
+                "timestamp", OffsetDateTime.now().toString(),
+                "status", 409,
+                "error", "Duplicate",
+                "message", ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
 }
