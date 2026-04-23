@@ -1,8 +1,8 @@
-package com.armand.professional_site_api.service;
+package com.armand.site.service;
 
-import com.armand.professional_site_api.domain.Project;
-import com.armand.professional_site_api.repository.ProjectRepository;
-import com.armand.professional_site_api.api.dto.ProjectResponse;
+import com.armand.site.domain.Project;
+import com.armand.site.repository.ProjectRepository;
+import com.armand.site.api.dto.ProjectResponse;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.armand.professional_site_api.api.dto;
+package com.armand.site.api.dto;
 
 import java.time.OffsetDateTime;
 

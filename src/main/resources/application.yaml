@@ -1,6 +1,6 @@
 spring:
   application:
-    name: armands_professional_site
+    name: site
 
   datasource:
     url: ${DB_URL}

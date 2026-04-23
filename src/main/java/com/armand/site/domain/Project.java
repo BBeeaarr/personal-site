@@ -1,4 +1,4 @@
-package com.armand.professional_site_api.domain;
+package com.armand.site.domain;
 
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;

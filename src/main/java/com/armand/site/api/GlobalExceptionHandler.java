@@ -1,6 +1,6 @@
-package com.armand.professional_site_api.api;
+package com.armand.site.api;
 
-import com.armand.professional_site_api.service.ProjectNotFoundException;
+import com.armand.site.service.ProjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

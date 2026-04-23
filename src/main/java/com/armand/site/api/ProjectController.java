@@ -1,7 +1,7 @@
-package com.armand.professional_site_api.api;
+package com.armand.site.api;
 
-import com.armand.professional_site_api.api.dto.ProjectResponse;
-import com.armand.professional_site_api.service.ProjectService;
+import com.armand.site.api.dto.ProjectResponse;
+import com.armand.site.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.armand.professional_site_api.service;
+package com.armand.site.service;
 
 public class ProjectNotFoundException extends RuntimeException {
 

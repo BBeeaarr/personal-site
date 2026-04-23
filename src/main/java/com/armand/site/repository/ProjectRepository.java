@@ -1,6 +1,6 @@
-package com.armand.professional_site_api.repository;
+package com.armand.site.repository;
 
-import com.armand.professional_site_api.domain.Project;
+import com.armand.site.domain.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
