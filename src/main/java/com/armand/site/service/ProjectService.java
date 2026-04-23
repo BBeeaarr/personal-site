@@ -6,6 +6,8 @@ import com.armand.site.domain.Project;
 import com.armand.site.repository.ProjectRepository;
 import com.armand.site.api.dto.ProjectResponse;
 
+import jakarta.transaction.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,7 @@ public class ProjectService {
         return toResponse(project);
     }
 
+    @Transactional
     public CreateProjectResponse create(CreateProjectRequest request)
     {
         if(projectRepository.existsBySlug(request.slug()))
@@ -49,10 +52,18 @@ public class ProjectService {
                 request.title(),
                 request.summary()
         );
+        try
+        {
+            Project saved = projectRepository.save(project);
+            return new CreateProjectResponse(saved.getSlug(), saved.getCreatedAt());
+        }
+        catch (DataIntegrityViolationException ex)
+        {
+            throw new DataIntegrityViolationException(request.slug());
+        }
 
-        Project saved = projectRepository.save(project);
 
-        return new CreateProjectResponse(saved.getSlug(), saved.getCreatedAt());
+
     }
 
     private ProjectResponse toResponse(Project project) {

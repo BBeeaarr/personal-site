@@ -64,4 +64,15 @@ public class Project{
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+    @PrePersist
+    protected void onCreate()
+    {
+        OffsetDateTime now = OffsetDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() { this.updatedAt = OffsetDateTime.now(); }
 }

@@ -2,6 +2,7 @@ package com.armand.site.api;
 
 import com.armand.site.service.DuplicateSlugException;
 import com.armand.site.service.ProjectNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,6 +34,19 @@ public class GlobalExceptionHandler {
                 "error", "Duplicate",
                 "message", ex.getMessage()
         );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, Object>> handleDataIntegrityViolation(DataIntegrityViolationException ex)
+    {
+        Map<String, Object> body = Map.of(
+                "timestamp", OffsetDateTime.now().toString(),
+                "status", 409,
+                "error", "Internal Server Error",
+                "message", ex.getMessage()
+        );
+
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
 }
