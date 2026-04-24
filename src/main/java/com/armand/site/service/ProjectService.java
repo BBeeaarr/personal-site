@@ -1,7 +1,7 @@
 package com.armand.site.service;
 
 import com.armand.site.api.dto.CreateProjectRequest;
-import com.armand.site.api.dto.CreateProjectResponse;
+import com.armand.site.api.dto.UpdateProjectRequest;
 import com.armand.site.domain.Project;
 import com.armand.site.repository.ProjectRepository;
 import com.armand.site.api.dto.ProjectResponse;
@@ -40,7 +40,7 @@ public class ProjectService {
     }
 
     @Transactional
-    public CreateProjectResponse create(CreateProjectRequest request)
+    public ProjectResponse create(CreateProjectRequest request)
     {
         if(projectRepository.existsBySlug(request.slug()))
         {
@@ -55,7 +55,7 @@ public class ProjectService {
         try
         {
             Project saved = projectRepository.save(project);
-            return new CreateProjectResponse(saved.getSlug(), saved.getCreatedAt());
+            return toResponse(saved);
         }
         catch (DataIntegrityViolationException ex)
         {
@@ -66,12 +66,33 @@ public class ProjectService {
 
     }
 
+    public ProjectResponse update(String slug, UpdateProjectRequest request)
+    {
+        Project project = projectRepository.findBySlug(slug)
+                .orElseThrow(() -> new ProjectNotFoundException(slug));
+
+        project.setSummary(request.summary());
+        project.setTitle(request.title());
+        try
+        {
+            Project saved = projectRepository.save(project);
+            return toResponse(saved);
+        }
+        catch (DataIntegrityViolationException ex)
+        {
+            throw new DataIntegrityViolationException(slug);
+        }
+
+
+    }
+
     private ProjectResponse toResponse(Project project) {
         return new ProjectResponse(
                 project.getSlug(),
                 project.getTitle(),
                 project.getSummary(),
-                project.getCreatedAt()
+                project.getCreatedAt(),
+                project.getUpdatedAt()
         );
     }
 }

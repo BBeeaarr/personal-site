@@ -1,8 +1,8 @@
 package com.armand.site.api;
 
-import com.armand.site.api.dto.CreateProjectResponse;
 import com.armand.site.api.dto.ProjectResponse;
 import com.armand.site.api.dto.CreateProjectRequest;
+import com.armand.site.api.dto.UpdateProjectRequest;
 import com.armand.site.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +28,15 @@ public class ProjectController {
     }
 
     @GetMapping("/{slug}")
-    public ProjectResponse getBySlug(@PathVariable String slug) {
-        return projectService.getBySlugOrThrow(slug);
+    public ResponseEntity<ProjectResponse> getBySlug(@PathVariable String slug) {
+        ProjectResponse response = projectService.getBySlugOrThrow(slug);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping
-    public ResponseEntity<CreateProjectResponse> create(@RequestBody @Valid CreateProjectRequest request)
+    public ResponseEntity<ProjectResponse> create(@RequestBody @Valid CreateProjectRequest request)
     {
-        CreateProjectResponse created = projectService.create(request);
+        ProjectResponse created = projectService.create(request);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -44,5 +45,12 @@ public class ProjectController {
                 .toUri();
 
         return ResponseEntity.created(location).body(created);
+    }
+
+    @PatchMapping("/{slug}")
+    public ResponseEntity<ProjectResponse> update(@PathVariable String slug, @RequestBody @Valid UpdateProjectRequest request)
+    {
+        ProjectResponse response = projectService.update(slug, request);
+        return ResponseEntity.ok(response);
     }
 }
