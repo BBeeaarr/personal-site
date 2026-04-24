@@ -82,8 +82,21 @@ public class ProjectService {
         {
             throw new DataIntegrityViolationException(slug);
         }
+    }
 
-
+    public ProjectResponse delete(String slug)
+    {
+        Project project = projectRepository.findBySlug(slug)
+                .orElseThrow(() -> new ProjectNotFoundException(slug));
+        try
+        {
+            projectRepository.delete(project);
+            return toResponse(project);
+        }
+        catch (DataIntegrityViolationException ex)
+        {
+            throw new DataIntegrityViolationException(slug);
+        }
     }
 
     private ProjectResponse toResponse(Project project) {

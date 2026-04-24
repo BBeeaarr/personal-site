@@ -53,4 +53,11 @@ public class ProjectController {
         ProjectResponse response = projectService.update(slug, request);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{slug}")
+    public ResponseEntity<ProjectResponse> archive(@PathVariable String slug)
+    {
+        ProjectResponse response = projectService.delete(slug);
+        return ResponseEntity.ok(response);
+    }
 }
