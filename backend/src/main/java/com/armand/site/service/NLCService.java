@@ -19,7 +19,7 @@ import java.util.Map;
 public class NLCService {
     private final NLCRepository nlcRepository;
 
-    @Value("${nlc.prediction-api-url")
+    @Value("${nlc.prediction-api-url}")
     private String url;
 
     public NLCService(NLCRepository nlcRepository) { this.nlcRepository = nlcRepository; }
