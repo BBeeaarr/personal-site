@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
-public record NLCCase (
+public record NLCCurrentCase(
     @NotBlank
     @JsonProperty("case_id")
     String caseId,

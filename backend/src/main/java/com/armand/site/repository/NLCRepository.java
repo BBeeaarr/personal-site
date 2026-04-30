@@ -1,8 +1,6 @@
 package com.armand.site.repository;
 
-import org.springframework.stereotype.Repository;
+import com.armand.site.domain.NLCCase;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface NLCRepository {
-
-}
+public interface NLCRepository extends JpaRepository<NLCCase, Long> {}
