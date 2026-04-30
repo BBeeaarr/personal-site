@@ -11,19 +11,19 @@ public class NLCCase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name="case_id", nullable = false, unique = true)
     private String caseId;
 
-    @Column(nullable = false)
+    @Column(name="case_description", nullable = false)
     private String caseDescription;
 
-    @Column(nullable = false)
+    @Column(name="case_date", nullable = false)
     private LocalDate caseDate;
 
-    @Column(nullable = false)
+    @Column(name="past_description", nullable = false)
     private String pastDescription;
 
-    @Column(nullable = false)
+    @Column(name="past_date", nullable = false)
     private LocalDate pastDate;
 
     @Column(nullable = true)
